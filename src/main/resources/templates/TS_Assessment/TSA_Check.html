@@ -39,6 +39,7 @@
     </div>
 
     <div class="inquiry-button">
+        <a href="/TS_Assessment/TSA_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
         <a href="#"><span class="imsi-button" onclick="search()">&nbsp;&nbsp;검색&nbsp;&nbsp;</span></a>
     </div>
     <br>
@@ -64,7 +65,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${evaluationList.getTotalPages() != 0}" th:each="evaluation : ${evaluationList}">
+        <tr th:if="${evaluationList.getTotalPages() != 0}" th:each="evaluation : ${evaluationList}"
+            th:onclick="|location.href='@{/TS_Assessment/TSA_Modify_Page/{evaluationId}(evaluationId=${evaluation.id})}'|">
             <td th:text="${evaluationStat.count} + ${evaluationList.number} * 10"></td>
             <td th:text="${evaluation.name}"></td>
             <td th:text="${evaluation.developmentStandard1.getCheckValue()}"></td>
@@ -114,10 +116,10 @@
         </div>
     </div>
 
-    <div class="regist-button">
-        <a href="/TS_Assessment/TSA_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
-        <a href="/TS_Assessment/TSA_Modify_Page"><span class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
-    </div>
+<!--    <div class="regist-button">-->
+<!--        <a href="/TS_Assessment/TSA_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>-->
+<!--        <a href="/TS_Assessment/TSA_Modify_Page"><span class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>-->
+<!--    </div>-->
     <p class="font" style="text-align: left;">
         &nbsp;&nbsp;&nbsp;발전가능성①: 발생가능한 위험 반영 여부<br>
         &nbsp;&nbsp;&nbsp;발전가능성②: 피해의 인과관계 기술 여부<br>

@@ -89,6 +89,7 @@ public class ScenarioEvaluation {
 
     @Transactional(readOnly = true)
     public void update(ScenarioEvaluationDto scenarioEvaluationDto) {
+        this.name = scenarioEvaluationDto.getName();
         this.developmentStandard1 = scenarioEvaluationDto.getDevelopmentStandard1();
         this.developmentStandard2 = scenarioEvaluationDto.getDevelopmentStandard2();
         this.developmentStandard3 = scenarioEvaluationDto.getDevelopmentStandard3();

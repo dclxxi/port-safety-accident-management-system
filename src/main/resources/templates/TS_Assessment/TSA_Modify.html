@@ -10,18 +10,19 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto+Mono:wght@100&display=swap"
+        rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="/css/tsassessment/tsamodify.css">
+  <link rel="stylesheet" href="/css/tsassessment/tsaregister.css">
 
-<script src="https://unpkg.com/react@16/umd/react.development.js"></script> 
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script> 
-<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 <script type="module" src="/js/header.js"></script>
 <port-header></port-header>
-
 <!--training-scenarios-assessment-inquiry-->
 
 <div class="training-scenarios-assessment-inquiry">
@@ -29,85 +30,192 @@
   <div class="inquiry-title">
     <p>대응훈련 시나리오 평가 수정</p>
   </div>
+
+
   <div class="inquiry-line-1">
-    <p> <span class="fonts">시나리오명&nbsp; <input type="text" placeholder="수정할 시나리오명 입력" style="width: 130px;" required> </span>
+    <p> <span class="fonts">시나리오명&nbsp;
+      <input type="text" id="name" th:value="${scenarioEvaluation.name}" placeholder="수정할 시나리오명 입력" style="width: 130px;" required> </span>
       &nbsp; &nbsp; &nbsp;
+      <input type="hidden" id="id" th:value="${scenarioEvaluation.id}">
     </p>
   </div>
-  <div class="inquiry-button">
-    <a href="#"><span class="imsi-button">&nbsp;&nbsp;검색&nbsp;&nbsp;</span></a>
-  </div>
-<br>
-<div class="inquiry-line-1" style="text-align: left;">
-  <p> <span class="fonts">변경 후의 시나리오명&nbsp; <input type="text" placeholder="" style="width: 130px;" required> </span>
-    &nbsp; &nbsp; &nbsp;
-  </p>
-</div>
-<table>
-  <tbody>
+  <br>
+  <table>
+    <thead>
     <tr>
-      <td colspan="1" rowspan="2" style="vertical-align: middle;">발생 가능성</td>
-      <td style="border-bottom:none;">사고원인 발생 가능 여부</td>
-      <td style="border-bottom:none;">
-        <input checked="checked" name="yesno1" value="적합" type="radio">적합
-        <input name="yesno1" value="부적합" type="radio">부적합</td>
+      <td>기준 유형</td>
+      <td>유형 설명</td>
+      <td>평가 기준</td>
+      <td>척도</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td colspan="1" rowspan="9">발생 가능성</td>
+      <td colspan="1" rowspan="9">발생가능한<br>위험 반영<br>여부</td>
+      <td colspan="1" rowspan="3">발생가능한 위험을 반영하여<br>훈련참가자가 실제 일어난 사건처럼 참여할 수 있는가</td>
+      <td style="text-align: left;"><label><input name="occurrence1" th:id="occurrence1" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard1, 'A')}">적합</label>
+      </td>
     </tr>
     <tr>
-      <td style="border-top:none;">사고결과 발생 가능 여부</td>
-      <td style="border-top:none;">
-        <input checked="checked" name="yesno2" value="적합" type="radio">적합
-        <input name="yesno2" value="부적합" type="radio">부적합</td>
+      <td style="text-align: left;"><label><input name="occurrence1" th:id="occurrence1" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard1, 'B')}">미흡</label></td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="2" style="vertical-align: middle;">적절성</td>
-      <td style="border-bottom:none;">계획시간 배치</td>
-      <td style="border-bottom:none;">
-        <input checked="checked" name="yesno3" value="적합" type="radio">적합
-        <input name="yesno3" value="부적합" type="radio">부적합</td>
+      <td style="text-align: left;"><label><input name="occurrence1" th:id="occurrence1" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard1, 'C')}">부적합</label></td>
     </tr>
     <tr>
-      <td style="border-top:none;">사고 대응 로직 구성</td>
-      <td style="border-top:none;">
-        <input checked="checked" name="yesno4" value="적합" type="radio">적합
-        <input name="yesno4" value="부적합" type="radio">부적합</td>
+      <td colspan="1" rowspan="3">피해의 인과관계가 명확히 기술되어 있는가</td>
+      <td style="text-align: left;"><label><input name="occurrence2" th:id="occurrence2" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard2, 'A')}">적합</label>
+      </td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="2" style="vertical-align: middle;">완전성</td>
-      <td style="border-bottom:none;">관련 설비 포함 여부</td>
-      <td style="border-bottom:none;">
-        <input checked="checked" name="yesno5" value="적합" type="radio">적합
-        <input name="yesno5" value="부적합" type="radio">부적합</td>
+      <td style="text-align: left;"><label><input name="occurrence2" th:id="occurrence2" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard2, 'B')}">미흡</label></td>
     </tr>
     <tr>
-      <td style="border-top:none;">사고대응 설비 포함 여부</td>
-      <td style="border-top:none;">
-        <input checked="checked" name="yesno6" value="적합" type="radio">적합
-        <input name="yesno6" value="부적합" type="radio">부적합</td>
+      <td style="text-align: left;"><label><input name="occurrence2" th:id="occurrence2" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard2, 'C')}">부적합</label></td>
     </tr>
-  </tbody>
-</table>
+    <tr>
+      <td colspan="1" rowspan="3">해당 항만의 위험요소나 취약점이 반영되었는가</td>
+      <td style="text-align: left;"><label><input name="occurrence3" th:id="occurrence3" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard3, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="occurrence3" th:id="occurrence3" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard3, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="occurrence3" th:id="occurrence3" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.developmentStandard3, 'C')}">부적합</label></td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="9">적절성<br></td>
+      <td colspan="1" rowspan="9">시나리오의<br>내용과 상황의<br>적절 여부</td>
+      <td colspan="1" rowspan="3">배치된 시간과 부서가 적절한가</td>
+      <td style="text-align: left;"><label><input name="appropriate1" th:id="appropriate1" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard1, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="appropriate1" th:id="appropriate1" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard1, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="appropriate1" th:id="appropriate1" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard1, 'C')}">부적합</label></td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="3">재난 및 사고 유형별 특성이 고려되었는가</td>
+      <td style="text-align: left;"><label><input name="appropriate2" th:id="appropriate2" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard2, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="appropriate2" th:id="appropriate2" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard2, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="appropriate2" th:id="appropriate2" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard2, 'C')}">부적합</label></td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="3">훈련을 위한 적절한 장소가 선택되었는가</td>
+      <td style="text-align: left;"><label><input name="appropriate3" th:id="appropriate3" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard3, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="appropriate3" th:id="appropriate3" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard3, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="appropriate3" th:id="appropriate3" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.possibleStandard3, 'C')}">부적합</label></td>
+    </tr>
+    <!--
+            <tr>
+                <td colspan="1" rowspan="4">발생일자 및 날씨를 반영하였는가
+                    <p style="display: inline; color: red;">(재난)</p></td>
+                <td style="text-align: left;"><label><input name="appropriate4" value="적합" type="radio" checked>적합</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><label><input name="appropriate4" value="미흡" type="radio">미흡</label></td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><label><input name="appropriate4" value="부적합" type="radio">부적합</label></td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><label><input name="appropriate4" value="해당없음" type="radio">해당없음</label></td>
+            </tr>
+    -->
+    <tr>
+      <td colspan="1" rowspan="9">완전성</td>
+      <td colspan="1" rowspan="9">시나리오의<br>필요 사항<br>기술 여부</td>
+      <td colspan="1" rowspan="3">물리적 피해 및 경제적 피해가 명시되어있는가</td>
+      <td style="text-align: left;"><label><input name="completeness1" th:id="completeness1" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard1, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="completeness1" th:id="completeness1" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard1, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="completeness1" th:id="completeness1" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard1, 'C')}">부적합</label></td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="3">상황대응에 대한 내용이 기술되어있는가</td>
+      <td style="text-align: left;"><label><input name="completeness2" th:id="completeness2" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard2, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="completeness2" th:id="completeness2" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard2, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="completeness2" th:id="completeness2" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard2, 'C')}">부적합</label></td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="3">복구 및 회복 내용이 명시되어있는가</td>
+      <td style="text-align: left;"><label><input name="completeness3" th:id="completeness3" value="A" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard3, 'A')}">적합</label>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="completeness3" th:id="completeness3" value="B" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard3, 'B')}">미흡</label></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><label><input name="completeness3" th:id="completeness3" value="C" type="radio" th:checked="${#strings.equals(scenarioEvaluation.completeStandard3, 'C')}">부적합</label></td>
+    </tr>
+    <!--
+            <tr>
+                <td colspan="1" rowspan="4">관련 사고 설비가 완전히 포함되어있는가
+                    <p style="display: inline; color: red;">(사고)</p></td>
+                <td style="text-align: left;"><label><input name="completeness4" value="적합" type="radio" checked>적합</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><label><input name="completeness4" value="미흡" type="radio">미흡</label></td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><label><input name="completeness4" value="부적합" type="radio">부적합</label></td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"><label><input name="completeness4" value="해당없음" type="radio">해당없음</label></td>
+            </tr>
+    -->
+    </tbody>
+  </table>
   <div class="regist-button">
-    <a href="#"><span class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
-    <a href="/TS_Assessment/TSA_Check.html"><span class="imsi-button">&nbsp;&nbsp;취소&nbsp;&nbsp;</span></a>
+    <a href="#"><span class="imsi-button" th:id="TSA_Modify_button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
+    <a href="/TS_Assessment/TSA_Check"><span class="imsi-button">&nbsp;&nbsp;취소&nbsp;&nbsp;</span></a>
   </div>
 </div>
-  <!-- footer -->
-  <footer>
-    <div class="inner">
-      <p class="title">DEVELOPED BY TEAM</p>
-      <ul class="menu">
-        <li><p>스마트 해상물류 프로젝트</p></li>
-        <li><p>항만 안전사고 대응 관리 시스템</p></li>
-      </ul>
-      <div class="info">
-        <span>MENTOR: 김인수</span>
-        <span>BACKEND TEAM: 정민환 이혜원 박태영</span>
-        <span>FRONTEND TEAM: 송영주 주현정</span>
-      </div>
-      <p class="copyright">
-        <span class="this-year"></span>Copyright © PSA Management Program All Rights Reserved.
-      </p>
+
+<!-- footer -->
+<footer>
+
+  <div class="inner">
+    <p class="title">DEVELOPED BY TEAM</p>
+    <ul class="menu">
+      <li><p>스마트 해상물류 프로젝트</p></li>
+      <li><p>항만 안전사고 대응 관리 시스템</p></li>
+    </ul>
+    <div class="info">
+      <span>MENTOR: 김인수</span>
+      <span>BACKEND TEAM: 정민환 이혜원 박태영</span>
+      <span>FRONTEND TEAM: 송영주 주현정</span>
     </div>
-  </footer>
+    <p class="copyright">
+      <span class="this-year"></span>Copyright © PSA Management Program All Rights Reserved.
+    </p>
+  </div>
+</footer>
+<script src="/js/TS_Assessment/TSA_Modify.js"></script>
 </body>
 </html>

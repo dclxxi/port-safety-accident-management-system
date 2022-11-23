@@ -254,6 +254,10 @@ public class ScenarioService {
      * 사고 대응 활동
      * */
 
+    public AccidentResponseActivity findByAccidentResponseActivityId(Integer accidentResponseActivityId) {
+        return accidentResponseActivityRepository.findById(accidentResponseActivityId).orElseThrow(() -> new NoSuchElementException("존재하지 않는 아이디값입니다."));
+    }
+
     @Transactional
     public Integer registerAccidentResponseActivity(Integer scenarioId, AccidentResponseActivityDto accidentResponseActivityDto) {
         Scenario scenario = scenarioRepository.findById(scenarioId).get();
@@ -297,8 +301,8 @@ public class ScenarioService {
      * 시나리오 평가
      * */
 
-    public AccidentResponseActivity findByAccidentResponseActivityId(Integer accidentResponseActivityId) {
-        return accidentResponseActivityRepository.findById(accidentResponseActivityId).orElseThrow(() -> new NoSuchElementException("존재하지 않는 아이디값입니다."));
+    public ScenarioEvaluation findScenarioEvaluationById(Integer scenarioEvaluationId) {
+        return scenarioEvaluationRepository.findById(scenarioEvaluationId).orElseThrow(() -> new NoSuchElementException("존재하지 않는 아이디값입니다."));
     }
 
     public Integer registerScenarioEvaluation(ScenarioEvaluationDto scenarioEvaluationDto) {
