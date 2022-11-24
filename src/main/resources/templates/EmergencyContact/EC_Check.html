@@ -65,7 +65,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${staffList.getTotalPages() != 0}" th:each="staff : ${staffList}">
+        <tr th:if="${staffList.getTotalPages() != 0}" th:each="staff : ${staffList}"
+            th:onclick="|location.href='@{/EmergencyContact/EC_Modify_Page/{staffId}(staffId=${staff.id})}'|">
             <td th:text="${staffStat.count} + ${staffList.number} * 10"></td>
             <td th:text="${staff.name}"></td>
             <td th:text="${staff.corporation}"></td>

@@ -29,36 +29,39 @@
 <!-- Emergency-Contact -->
 <div class="Emergency-Contact">
     <div class="Emergency-Contact-title">
-        <p>비상연락망 등록</p>
+        <p>비상연락망 수정</p>
     </div>
 
     <div class="Container">
         <div class="Emergency-Contact-line">
                 <span class="fonts">
+                    <input type="hidden" id="id" th:value="${staff.id}">
                 <p class="pstyle">이름</p><br><br>
-                <input type="text" name="name" id="name" placeholder="이름 입력" style="width: 250px; height: 25px;"
-                       required><br><br><br>
+                <input type="text" name="name" id="name" th:value="${staff.name}" placeholder="이름 입력"
+                       style="width: 250px; height: 25px;" required><br><br><br>
                 <p class="pstyle">조직</p><br><br>
-                <input type="text" name="group" id="group" placeholder="조직명 입력" style="width: 250px; height: 25px;"
-                       required><br><br><br>
+                <input type="text" name="group" id="group" th:value="${staff.group}" placeholder="조직명 입력"
+                       style="width: 250px; height: 25px;" required><br><br><br>
                 <p class="pstyle">연락처</p><br><br>
-                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="01012345678"
-                       style="width: 250px; height: 25px;"
-                       required><br><br><br>
+                <input type="text" name="phoneNumber" id="phoneNumber" th:value="${staff.phoneNumber}"
+                       placeholder="01012345678"
+                       style="width: 250px; height: 25px;" required><br><br><br>
                 </span>
         </div>
 
         <div class="Emergency-Contact-line1">
         <span class="fonts">
                 <p class="pstyle2">소속회사</p><br><br>
-                <input type="text" name="corporation" id="corporation" placeholder="회사명 입력"
+                <input type="text" name="corporation" id="corporation" th:value="${staff.corporation}"
+                       placeholder="회사명 입력"
                        style="width: 250px; height: 25px;"
                        required><br><br><br>
                 <p class="pstyle2">직급</p><br><br>
-                <input type="text" name="position" id="position" placeholder="직급 입력" style="width: 250px; height: 25px;"
+                <input type="text" name="position" id="position" th:value="${staff.position}" placeholder="직급 입력"
+                       style="width: 250px; height: 25px;"
                        required><br><br><br>
                 <p class="pstyle2">이메일 주소</p><br><br>
-                <input type="text" name="email" id="email" placeholder="이메일 입력"
+                <input type="text" name="email" id="email" th:value="${staff.email}" placeholder="이메일 입력"
                        style="width: 250px; height: 25px;"
                        required><br><br><br>
                 </span>
@@ -67,7 +70,7 @@
     </div>
     <div class="regist-button">
         <!--        <button id="EC_Registration_button">등록</button>-->
-        <a href="#"><span class="imsi-button" id="EC_Registration_button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
+        <a href="#"><span class="imsi-button" id="EC_Modify_button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
         <a href="/EmergencyContact/EC_Check"><span class="imsi-button">&nbsp;&nbsp;취소&nbsp;&nbsp;</span></a>
     </div>
 </div>
@@ -90,6 +93,6 @@
         </p>
     </div>
 </footer>
-<script src="/js/EmergencyContact/ec_registration.js"></script>
+<script src="/js/EmergencyContact/ec_modify.js"></script>
 </body>
 </html>
