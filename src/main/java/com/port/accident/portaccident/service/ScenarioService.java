@@ -308,7 +308,8 @@ public class ScenarioService {
     public Integer registerScenarioEvaluation(ScenarioEvaluationDto scenarioEvaluationDto) {
         Scenario scenario = scenarioRepository.findByName(scenarioEvaluationDto.getName()).get();
 
-        scenarioEvaluationDto.setName(settingScenarioEvaluationName(scenario.getId(), scenario.getName()));
+        String scenarioEvaluation = scenarioEvaluationRepository.setScenarioEvaluationName(scenario.getId(), scenario.getName());
+        scenarioEvaluationDto.setName(scenarioEvaluation);
 
         scenario.addScenarioEvaluation(scenarioEvaluationDto);
         return saveScenarioEvaluation(scenarioEvaluationDto);
@@ -319,19 +320,6 @@ public class ScenarioService {
         validateDuplicateScenarioEvaluation(scenarioEvaluationDto); // 중복 시나리오 평가 검증
 
         return scenarioEvaluationRepository.save(scenarioEvaluationDto.toEntity()).getId();
-    }
-
-    public String settingScenarioEvaluationName(Integer scenarioId, String scenarioName) {
-        Page<String> beforeScenarioName = scenarioEvaluationRepository.findTopByNameByScenarioId(scenarioId, PageRequest.of(0, 1));
-
-        if (beforeScenarioName.getTotalPages() != 0) {
-            String[] split = beforeScenarioName.getContent().get(0).split("v");
-            scenarioName = split[0] + "v" + (Integer.parseInt(split[1]) + 1);
-        } else {
-            scenarioName += "v1";
-        }
-
-        return scenarioName;
     }
 
     private void validateDuplicateScenarioEvaluation(ScenarioEvaluationDto scenarioEvaluationDto) {

@@ -14,9 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.port.accident.portaccident.domain.training_scenario.QScenario.scenario;
-import static org.springframework.util.ObjectUtils.isEmpty;
 import static com.port.accident.portaccident.domain.training_scenario.scenario_evaluation.QScenarioEvaluation.scenarioEvaluation;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 
 @Repository
@@ -46,5 +45,30 @@ public class ScenarioEvaluationRepositoryCustomImpl implements ScenarioEvaluatio
 
     private BooleanExpression nameContains(String nameCondition) {
         return isEmpty(nameCondition) ? null : scenarioEvaluation.name.contains(nameCondition);
+    }
+
+    @Override
+    public String setScenarioEvaluationName(Integer scenarioId, String scenarioName) {
+        String beforeScenarioName = findTopByNameByScenarioId(scenarioId);
+
+        if (beforeScenarioName == null) {
+            return scenarioName + "v1";
+        }
+
+        String version = beforeScenarioName.substring(beforeScenarioName.lastIndexOf("v"));
+        return scenarioName + (Integer.parseInt(version) + 1);
+    }
+
+    private String findTopByNameByScenarioId(Integer scenarioId) {
+        return queryFactory
+                .select(scenarioEvaluation.name)
+                .from(scenarioEvaluation)
+                .where(scenarioIdEquals(scenarioId))
+                .orderBy(scenarioEvaluation.id.desc())
+                .fetchFirst();
+    }
+
+    private BooleanExpression scenarioIdEquals(Integer scenarioId) {
+        return scenarioEvaluation.scenario.id.eq(scenarioId);
     }
 }
