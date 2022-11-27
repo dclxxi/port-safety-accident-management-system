@@ -23,6 +23,8 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @RequiredArgsConstructor
 public class ScenarioEvaluationRepositoryCustomImpl implements ScenarioEvaluationRepositoryCustom {
 
+    private static final String VERSION = "v";
+
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -51,12 +53,14 @@ public class ScenarioEvaluationRepositoryCustomImpl implements ScenarioEvaluatio
     public String setScenarioEvaluationName(Integer scenarioId, String scenarioName) {
         String beforeScenarioName = findTopByNameByScenarioId(scenarioId);
 
+        System.out.println(beforeScenarioName);
+
         if (beforeScenarioName == null) {
             return scenarioName + "v1";
         }
 
-        String version = beforeScenarioName.substring(beforeScenarioName.lastIndexOf("v"));
-        return scenarioName + (Integer.parseInt(version) + 1);
+        String version = beforeScenarioName.substring(beforeScenarioName.lastIndexOf(VERSION) + 1);
+        return scenarioName + VERSION + (Integer.parseInt(version) + 1);
     }
 
     private String findTopByNameByScenarioId(Integer scenarioId) {

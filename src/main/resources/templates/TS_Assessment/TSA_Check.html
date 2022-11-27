@@ -33,14 +33,15 @@
     </div>
 
     <div class="inquiry-line-1">
+            &nbsp; &nbsp; &nbsp;
         <p><span class="fonts"> 시나리오명&nbsp; <input id="evaluationName" type="text" placeholder="시나리오명 입력" style="width: 130px;"> </span>
             &nbsp; &nbsp; &nbsp;
         </p>
     </div>
 
     <div class="inquiry-button">
-        <a href="/TS_Assessment/TSA_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
         <a href="#"><span class="imsi-button" onclick="search()">&nbsp;&nbsp;검색&nbsp;&nbsp;</span></a>
+        <a href="/TS_Assessment/TSA_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
     </div>
     <br>
     <table>
@@ -65,9 +66,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${evaluationList.getTotalPages() != 0}" th:each="evaluation : ${evaluationList}"
+        <tr th:if="${evaluations.getTotalPages() != 0}" th:each="evaluation : ${evaluations}"
             th:onclick="|location.href='@{/TS_Assessment/TSA_Modify_Page/{evaluationId}(evaluationId=${evaluation.id})}'|">
-            <td th:text="${evaluationStat.count} + ${evaluationList.number} * 10"></td>
+            <td th:text="${evaluationStat.count} + ${evaluations.number} * 10"></td>
             <td th:text="${evaluation.name}"></td>
             <td th:text="${evaluation.developmentStandard1.getCheckValue()}"></td>
             <td th:text="${evaluation.developmentStandard2.getCheckValue()}"></td>
@@ -79,7 +80,7 @@
             <td th:text="${evaluation.completeStandard2.getCheckValue()}"></td>
             <td th:text="${evaluation.completeStandard3.getCheckValue()}"></td>
         </tr>
-        <tr th:if="${evaluationList.getTotalPages() == 0}">
+        <tr th:if="${evaluations.getTotalPages() == 0}">
             <td colspan="11">조회된 결과가 없습니다.</td>
         </tr>
         </tbody>
@@ -87,8 +88,8 @@
     <div class="page_wrap">
         <div class="page_nation">
             <ul class="page_ul"
-                th:if="${evaluationList.getTotalPages() != 0}"
-                th:with="start=${T(java.lang.Math).floor(evaluationList.number/10)*10 + 1}, last=(${start + 9 < evaluationList.totalPages ? start + 9 : evaluationList.totalPages})">
+                th:if="${evaluations.getTotalPages() != 0}"
+                th:with="start=${T(java.lang.Math).floor(evaluations.number/10)*10 + 1}, last=(${start + 9 < evaluations.totalPages ? start + 9 : evaluations.totalPages})">
                 <!--with: 변수 설정-->
                 <!--start: 현제 페이지를 통해 현재 페이지 그룹의 시작 페이지를 구하는 로직-->
                 <!--last: 전체 페이지 수와 현재 페이지 그룹의 시작 페이지를 통해 현재 페이지 그룹의 마지막 페이지를 구하는 로직-->
@@ -98,19 +99,19 @@
                 </li>
                 <li class="page_li">
                     <a class="arrow prev"
-                       th:href="${evaluationList.first} ? '#' : @{/TS_Assessment/TSA_Check(page=${evaluationList.number},name=${condition.name})}"></a>
+                       th:href="${evaluations.first} ? '#' : @{/TS_Assessment/TSA_Check(page=${evaluations.number},name=${condition.name})}"></a>
                 </li>
                 <li class="page_li" th:each="page: ${#numbers.sequence(start, last)}">
-                    <a th:text="${page}" th:class="${page == evaluationList.number + 1} ? 'active'"
+                    <a th:text="${page}" th:class="${page == evaluations.number + 1} ? 'active'"
                        th:href="@{/TS_Assessment/TSA_Check(page=${page},name=${condition.name})}"></a>
                 </li>
                 <li class="page_li">
                     <a class="arrow next"
-                       th:href="${evaluationList.last} ? '#' : @{/TS_Assessment/TSA_Check(page=${evaluationList.number + 2},name=${condition.name})}"></a>
+                       th:href="${evaluations.last} ? '#' : @{/TS_Assessment/TSA_Check(page=${evaluations.number + 2},name=${condition.name})}"></a>
                 </li>
                 <li class="page_li">
                     <a class="arrow nnext"
-                       th:href="@{/TS_Assessment/TSA_Check(page=${evaluationList.totalPages},name=${condition.name})}"></a>
+                       th:href="@{/TS_Assessment/TSA_Check(page=${evaluations.totalPages},name=${condition.name})}"></a>
                 </li>
             </ul>
         </div>

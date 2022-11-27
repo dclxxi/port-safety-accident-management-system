@@ -53,17 +53,17 @@
             <td style="background-color: #f2eeee; font-weight: 600;">사고항만설비</td>
             <td colspan="3" rowspan="1">
                 <input type="checkbox" th:name="accidentPortFacilityList" th:value="CRANE"
-                       th:checked="${#strings.contains(portFacilityList,'CRANE')}" disabled>크레인
+                       th:checked="${#strings.contains(portFacilities,'CRANE')}" disabled>크레인
                 &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="CONTAINER"
-                             th:checked="${#strings.contains(portFacilityList,'CONTAINER')}" disabled>컨테이너
+                             th:checked="${#strings.contains(portFacilities,'CONTAINER')}" disabled>컨테이너
                 &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="FORKLIFT"
-                             th:checked="${#strings.contains(portFacilityList,'FORKLIFT')}" disabled>지게차
+                             th:checked="${#strings.contains(portFacilities,'FORKLIFT')}" disabled>지게차
                 &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="LADDER"
-                             th:checked="${#strings.contains(portFacilityList,'LADDER')}" disabled>사다리
+                             th:checked="${#strings.contains(portFacilities,'LADDER')}" disabled>사다리
             </td>
         </tr>
         </tbody>
-        <tbody th:each="accidentResponseActivity : ${accidentResponseActivityList}">
+        <tbody th:each="accidentResponseActivity : ${accidentResponseActivities}">
         <tr>
             <td colspan="4" style="border-left: 0.5px solid #fff; border-right: 0.5px solid #fff;"></td>
         </tr>

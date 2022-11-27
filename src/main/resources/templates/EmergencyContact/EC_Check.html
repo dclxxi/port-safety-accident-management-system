@@ -49,6 +49,7 @@
         <span class="fonts">소속 회사</span>&nbsp; <input id="corporationName" type="text" placeholder="회사명 입력" style="width: 80px;">
         &nbsp;
         <a href="#"><span class="imsi-button" onclick="search()">&nbsp;&nbsp;검색&nbsp;&nbsp;</span></a>
+        <a href="/EmergencyContact/EC_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
     </div>
     <br>
 
@@ -65,9 +66,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${staffList.getTotalPages() != 0}" th:each="staff : ${staffList}"
+        <tr th:if="${staffs.getTotalPages() != 0}" th:each="staff : ${staffs}"
             th:onclick="|location.href='@{/EmergencyContact/EC_Modify_Page/{staffId}(staffId=${staff.id})}'|">
-            <td th:text="${staffStat.count} + ${staffList.number} * 10"></td>
+            <td th:text="${staffStat.count} + ${staffs.number} * 10"></td>
             <td th:text="${staff.name}"></td>
             <td th:text="${staff.corporation}"></td>
             <td th:text="${staff.group}"></td>
@@ -75,7 +76,7 @@
             <td th:text="${staff.email}"></td>
             <td th:text="${staff.phoneNumber}"></td>
         </tr>
-        <tr th:if="${staffList.getTotalPages() == 0}">
+        <tr th:if="${staffs.getTotalPages() == 0}">
             <td colspan="7">조회된 결과가 없습니다.</td>
         </tr>
         </tbody>
@@ -83,8 +84,8 @@
     <div class="page_wrap">
         <div class="page_nation">
             <ul class="page_ul"
-                th:if="${staffList.getTotalPages() != 0}"
-                th:with="start=${T(java.lang.Math).floor(staffList.number/10)*10 + 1}, last=(${start + 9 < staffList.totalPages ? start + 9 : staffList.totalPages})">
+                th:if="${staffs.getTotalPages() != 0}"
+                th:with="start=${T(java.lang.Math).floor(staffs.number/10)*10 + 1}, last=(${start + 9 < staffs.totalPages ? start + 9 : staffs.totalPages})">
                 <!--with: 변수 설정-->
                 <!--start: 현제 페이지를 통해 현재 페이지 그룹의 시작 페이지를 구하는 로직-->
                 <!--last: 전체 페이지 수와 현재 페이지 그룹의 시작 페이지를 통해 현재 페이지 그룹의 마지막 페이지를 구하는 로직-->
@@ -94,28 +95,28 @@
                 </li>
                 <li class="page_li">
                     <a class="arrow prev"
-                       th:href="${staffList.first} ? '#' : @{/EmergencyContact/EC_Check(page=${staffList.number},name=${condition.name},corporation=${condition.corporation})}"></a>
+                       th:href="${staffs.first} ? '#' : @{/EmergencyContact/EC_Check(page=${staffs.number},name=${condition.name},corporation=${condition.corporation})}"></a>
                 </li>
                 <li class="page_li" th:each="page: ${#numbers.sequence(start, last)}">
-                    <a th:text="${page}" th:class="${page == staffList.number + 1} ? 'active'"
+                    <a th:text="${page}" th:class="${page == staffs.number + 1} ? 'active'"
                        th:href="@{/EmergencyContact/EC_Check(page=${page},name=${condition.name},corporation=${condition.corporation})}"></a>
                 </li>
                 <li class="page_li">
                     <a class="arrow next"
-                       th:href="${staffList.last} ? '#' : @{/EmergencyContact/EC_Check(page=${staffList.number + 2},name=${condition.name},corporation=${condition.corporation})}"></a>
+                       th:href="${staffs.last} ? '#' : @{/EmergencyContact/EC_Check(page=${staffs.number + 2},name=${condition.name},corporation=${condition.corporation})}"></a>
                 </li>
                 <li class="page_li">
                     <a class="arrow nnext"
-                       th:href="@{/EmergencyContact/EC_Check(page=${staffList.totalPages},name=${condition.name},corporation=${condition.corporation})}"></a>
+                       th:href="@{/EmergencyContact/EC_Check(page=${staffs.totalPages},name=${condition.name},corporation=${condition.corporation})}"></a>
                 </li>
             </ul>
         </div>
     </div>
 
-    <div class="regist-button">
-        <a href="/EmergencyContact/EC_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>
-        <a href="#"><span class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
-    </div>
+<!--    <div class="regist-button">-->
+<!--        <a href="/EmergencyContact/EC_Register_Page"><span class="imsi-button">&nbsp;&nbsp;등록&nbsp;&nbsp;</span></a>-->
+<!--        <a href="#"><span class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>-->
+<!--    </div>-->
 </div>
 
 <!-- footer -->
