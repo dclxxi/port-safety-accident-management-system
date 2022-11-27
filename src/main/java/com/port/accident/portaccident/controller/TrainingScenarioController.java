@@ -94,20 +94,12 @@ public class TrainingScenarioController {
                                         @RequestParam(required = false, defaultValue = "") String incidentDetailType,
                                         @PageableDefault Pageable pageable) {
 
-        ScenarioSearchCondition condition = new ScenarioSearchCondition();
-        if (hasText(name))
-            condition.setName(name);
-        if (hasText(incidentLevel))
-            condition.setIncidentLevel(IncidentLevel.valueOf(incidentLevel));
-        if (hasText(incidentType))
-            condition.setIncidentType(IncidentType.valueOf(incidentType));
-        if (hasText(incidentDetailType))
-            condition.setIncidentDetailType(IncidentDetailType.valueOf(incidentDetailType));
-
+        ScenarioSearchCondition condition = new ScenarioSearchCondition(name, incidentLevel, incidentType, incidentDetailType);
         Page<ScenarioFacilityDto> scenarios = scenarioService.searchPageScenario(condition, pageable);
 
         model.addAttribute("condition", condition);
         model.addAttribute("scenarios", scenarios);
+
         return "TrainingScenarios/TS_Check";
     }
 
