@@ -18,6 +18,8 @@ let saveStaff = {
             completeStandard3: $("#completeness3:checked").val(),
         };
 
+        console.log(data);
+
         $.ajax({
             method: "POST",
             url: "/TS_Assessment/TSA_Register",

@@ -133,26 +133,26 @@
     <div class="regist-line-4">
         <p><span class="fonts" id="ch5">사고항만설비</span> &nbsp; &nbsp;
             <input type="checkbox" th:name="accidentPortFacilityList" th:value="CRANE"
-                   th:checked="${#strings.contains(portFacilityList,'CRANE')}">크레인
+                   th:checked="${#strings.contains(portFacilities,'CRANE')}">크레인
             &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="CONTAINER"
-                         th:checked="${#strings.contains(portFacilityList,'CONTAINER')}">컨테이너
+                         th:checked="${#strings.contains(portFacilities,'CONTAINER')}">컨테이너
             &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="FORKLIFT"
-                         th:checked="${#strings.contains(portFacilityList,'FORKLIFT')}">지게차
+                         th:checked="${#strings.contains(portFacilities,'FORKLIFT')}">지게차
             &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="LADDER"
-                         th:checked="${#strings.contains(portFacilityList,'LADDER')}">사다리
+                         th:checked="${#strings.contains(portFacilities,'LADDER')}">사다리
         </p>
     </div>
 
-    <div class="regist-title" th:if="${accidentResponseActivityList.size() != 0}">
+    <div class="regist-title" th:if="${accidentResponseActivities.size() != 0}">
         <p>사고대응활동 수정</p>
     </div>
 
-    <th:block th:each="activity : ${accidentResponseActivityList}">
+    <th:block th:each="activity : ${accidentResponseActivities}">
         <div class="regist-line-5">
             <p class="fonts" id="ch6">사고대응활동 내용</p>
         </div>
         <br>
-        <input type="hidden" th:id="size" th:value="${accidentResponseActivityList.size()}">
+        <input type="hidden" th:id="size" th:value="${accidentResponseActivities.size()}">
         <input type="hidden" th:id="'accidentResponseActivityId'+${activityStat.count}" th:value="${activity.id}">
         <div class="regist-line-6">
             <p><textarea th:id="'comment'+${activityStat.count}" placeholder="발생한 상황을 가정하여 상세하게 작성"

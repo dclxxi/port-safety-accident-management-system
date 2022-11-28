@@ -10,7 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -61,10 +66,11 @@ public class StaffController {
                              @PageableDefault Pageable pageable) {
 
         StaffSearchCondition condition = new StaffSearchCondition(name, corporation);
-        Page<Staff> staffList = staffService.searchPageStaff(condition, pageable);
+        Page<Staff> staffs = staffService.searchPageStaff(condition, pageable);
 
         model.addAttribute("condition", condition);
-        model.addAttribute("staffList", staffList);
+        model.addAttribute("staffs", staffs);
+
         return "EmergencyContact/EC_Check";
     }
 

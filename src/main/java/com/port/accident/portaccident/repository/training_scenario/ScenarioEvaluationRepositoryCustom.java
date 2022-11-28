@@ -8,7 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface ScenarioEvaluationRepositoryCustom {
 
     Page<ScenarioEvaluation> searchPageScenarioEvaluation(EvaluationSearchCondition condition, Pageable pageable);
-
-
-
+    String setScenarioEvaluationName(Integer scenarioId, String scenarioName);
 }

@@ -18,8 +18,4 @@ public interface ScenarioEvaluationRepository extends JpaRepository<ScenarioEval
     Optional<ScenarioEvaluation> findByName(@Param("name") String name);
 
     Integer countByScenarioId(Integer scenarioId);
-
-    @Query("select s.name from ScenarioEvaluation s where s.scenario.id = :scenarioId order by s.id desc")
-    Page<String> findTopByNameByScenarioId(@Param("scenarioId") Integer scenarioId, Pageable pageable);
-
 }

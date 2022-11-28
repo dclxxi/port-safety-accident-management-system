@@ -14,15 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.port.accident.portaccident.domain.training_scenario.QScenario.scenario;
-import static org.springframework.util.ObjectUtils.isEmpty;
 import static com.port.accident.portaccident.domain.training_scenario.scenario_evaluation.QScenarioEvaluation.scenarioEvaluation;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 
 @Repository
 @Transactional
 @RequiredArgsConstructor
 public class ScenarioEvaluationRepositoryCustomImpl implements ScenarioEvaluationRepositoryCustom {
+
+    private static final String VERSION = "v";
 
     private final JPAQueryFactory queryFactory;
 
@@ -46,5 +47,32 @@ public class ScenarioEvaluationRepositoryCustomImpl implements ScenarioEvaluatio
 
     private BooleanExpression nameContains(String nameCondition) {
         return isEmpty(nameCondition) ? null : scenarioEvaluation.name.contains(nameCondition);
+    }
+
+    @Override
+    public String setScenarioEvaluationName(Integer scenarioId, String scenarioName) {
+        String beforeScenarioName = findTopByNameByScenarioId(scenarioId);
+
+        System.out.println(beforeScenarioName);
+
+        if (beforeScenarioName == null) {
+            return scenarioName + "v1";
+        }
+
+        String version = beforeScenarioName.substring(beforeScenarioName.lastIndexOf(VERSION) + 1);
+        return scenarioName + VERSION + (Integer.parseInt(version) + 1);
+    }
+
+    private String findTopByNameByScenarioId(Integer scenarioId) {
+        return queryFactory
+                .select(scenarioEvaluation.name)
+                .from(scenarioEvaluation)
+                .where(scenarioIdEquals(scenarioId))
+                .orderBy(scenarioEvaluation.id.desc())
+                .fetchFirst();
+    }
+
+    private BooleanExpression scenarioIdEquals(Integer scenarioId) {
+        return scenarioEvaluation.scenario.id.eq(scenarioId);
     }
 }

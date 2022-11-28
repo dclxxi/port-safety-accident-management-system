@@ -30,7 +30,7 @@ public class ScenarioDto {
     public ScenarioDto(Integer id, String name, IncidentLevel incidentLevel, IncidentImpact incidentImpact, IncidentType incidentType,
                        IncidentDetailType incidentDetailType, TrainingPlace portArea) {
 //                       List<AccidentPortFacility> accidentPortFacilityList,
-//                       List<AccidentResponseActivity> accidentResponseActivityList,
+//                       List<AccidentResponseActivity> accidentResponseActivities,
 //                       List<ScenarioEvaluation> scenarioEvaluationList
         this.id = id;
         this.name = name;
@@ -40,7 +40,7 @@ public class ScenarioDto {
         this.incidentDetailType = incidentDetailType;
         this.portArea = portArea;
 //        this.accidentPortFacilityList = accidentPortFacilityList;
-//        this.accidentResponseActivityList = accidentResponseActivityList;
+//        this.accidentResponseActivities = accidentResponseActivities;
 //        this.scenarioEvaluationList = scenarioEvaluationList;
     }
 
