@@ -15,7 +15,7 @@ cache:
 
 stages:
   - build
-  - deploy
+  # - deploy
 
 build:
   stage: build
@@ -29,19 +29,19 @@ build:
     paths:
     - build/libs/*.jar
 
-deploy:
-  image: python:latest
-  stage: deploy
-  dependencies:
-    - build
-  variables:
-    S3_BUCKET: $S3_BUCKET
-  before_script:
-    - pip install awscli
-  script:
-    - aws s3 cp build/libs/*.jar s3://$S3_BUCKET/*.jar
-  only:
-    - master
+# deploy:
+#   image: python:latest
+#   stage: deploy
+#   dependencies:
+#     - build
+#   variables:
+#     S3_BUCKET: $S3_BUCKET
+#   before_script:
+#     - pip install awscli
+#   script:
+#     - aws s3 cp build/libs/*.jar s3://$S3_BUCKET/*.jar
+#   only:
+#     - master
 
 
 # docker-build:
