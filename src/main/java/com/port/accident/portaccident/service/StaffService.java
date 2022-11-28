@@ -22,6 +22,7 @@ public class StaffService {
 
     public StaffDto toServiceDto(StaffDto staffDto) {
         return StaffDto.builder()
+                .id(staffDto.getId())
                 .name(staffDto.getName())
                 .corporation(staffDto.getCorporation())
                 .group(staffDto.getGroup())
@@ -53,7 +54,7 @@ public class StaffService {
 
     @Transactional
     public Integer updateStaff(StaffDto staffDto) {
-        Staff staff = staffRepository.findByPhoneNumber(staffDto.getPhoneNumber()).get();
+        Staff staff = staffRepository.findById(staffDto.getId()).get();
         staff.update(staffDto);
 
         return staffRepository.save(staff).getId();

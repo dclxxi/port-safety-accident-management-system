@@ -29,6 +29,7 @@ let saveScenario = {
             contentType: "application/json"
         }).done(function (resp) {
             alert('사고대응활동이 저장되었습니다.');
+            location.href = "/TrainingScenarios/TS_Detail/" + $("#scenarioId").val();
             console.log(JSON.stringify(data));
         }).fail(function (error) {
             console.log(error);

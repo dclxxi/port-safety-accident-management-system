@@ -125,6 +125,7 @@ public class Scenario {
 
     @Transactional(readOnly = true)
     public void update(ScenarioDto scenarioDto) {
+        this.name = scenarioDto.getName();
         this.incidentLevel = scenarioDto.getIncidentLevel();
         this.incidentImpact = scenarioDto.getIncidentImpact();
         this.incidentType = scenarioDto.getIncidentType();

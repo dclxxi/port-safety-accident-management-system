@@ -1,7 +1,7 @@
 package com.port.accident.portaccident.repository.training_scenario;
 
-import com.port.accident.portaccident.dto.training_scenario.QScenarioAccidentPortFacilityDto;
-import com.port.accident.portaccident.dto.training_scenario.ScenarioAccidentPortFacilityDto;
+import com.port.accident.portaccident.dto.training_scenario.QScenarioFacilityDto;
+import com.port.accident.portaccident.dto.training_scenario.ScenarioFacilityDto;
 import com.port.accident.portaccident.dto.training_scenario.ScenarioSearchCondition;
 import com.port.accident.portaccident.enums.IncidentDetailType;
 import com.port.accident.portaccident.enums.IncidentLevel;
@@ -29,9 +29,9 @@ public class ScenarioRepositoryCustomImpl implements ScenarioRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<ScenarioAccidentPortFacilityDto> searchPageScenario(ScenarioSearchCondition condition, Pageable pageable) {
-        List<ScenarioAccidentPortFacilityDto> content = queryFactory
-                .select(new QScenarioAccidentPortFacilityDto(
+    public Page<ScenarioFacilityDto> searchPageScenario(ScenarioSearchCondition condition, Pageable pageable) {
+        List<ScenarioFacilityDto> content = queryFactory
+                .select(new QScenarioFacilityDto(
                         scenario.id,
                         scenario.name,
                         scenario.incidentLevel,

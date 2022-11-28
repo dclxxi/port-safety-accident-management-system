@@ -3,7 +3,7 @@ package com.port.accident.portaccident.service.training_scenario;
 import com.port.accident.portaccident.domain.training_scenario.Scenario;
 import com.port.accident.portaccident.domain.training_scenario.elements.AccidentPortFacility;
 import com.port.accident.portaccident.domain.training_scenario.elements.AccidentResponseActivity;
-import com.port.accident.portaccident.dto.training_scenario.ScenarioAccidentPortFacilityDto;
+import com.port.accident.portaccident.dto.training_scenario.ScenarioFacilityDto;
 import com.port.accident.portaccident.dto.training_scenario.ScenarioDto;
 import com.port.accident.portaccident.dto.training_scenario.ScenarioSearchCondition;
 import com.port.accident.portaccident.dto.training_scenario.elements.AccidentPortFacilityDto;
@@ -256,13 +256,27 @@ public class TrainingScenarioServiceTest {
                 .name(PortFacility.CONTAINER)
                 .build();
 
+        AccidentResponseActivityDto updateAccidentResponseActivityDto1 = AccidentResponseActivityDto.builder()
+                .manager("이혜원")
+                .scenario(scenario)
+                .build();
+
+        AccidentResponseActivityDto updateAccidentResponseActivityDto2 = AccidentResponseActivityDto.builder()
+                .manager("김진우")
+                .scenario(scenario)
+                .build();
+
         List<AccidentPortFacilityDto> updateAccidentPortFacilityDtoList = new ArrayList<>();
         updateAccidentPortFacilityDtoList.add(updateAccidentPortFacilityDto);
         updateAccidentPortFacilityDtoList.add(updateAccidentPortFacilityDto2);
         updateAccidentPortFacilityDtoList.add(updateAccidentPortFacilityDto3);
 
+        List<AccidentResponseActivityDto> updateAccidentResponseActivityDtoList = new ArrayList<>();
+        updateAccidentResponseActivityDtoList.add(updateAccidentResponseActivityDto1);
+        updateAccidentResponseActivityDtoList.add(updateAccidentResponseActivityDto2);
+
         //when
-        Integer updateScenarioId = scenarioService.modifyScenario(updateScenarioDto, updateAccidentPortFacilityDtoList);
+        Integer updateScenarioId = scenarioService.modifyScenario(updateScenarioDto, updateAccidentPortFacilityDtoList, updateAccidentResponseActivityDtoList);
 
         //then
         Scenario updateScenario = scenarioRepository.findById(updateScenarioId).get();
@@ -343,10 +357,10 @@ public class TrainingScenarioServiceTest {
         PageRequest pageRequest = PageRequest.of(0, 3); // Sort.by(Sort.Direction.DESC, "name")
 
         //when
-        Page<ScenarioAccidentPortFacilityDto> scenario = scenarioService.searchPageScenario(condition, pageRequest);
+        Page<ScenarioFacilityDto> scenario = scenarioService.searchPageScenario(condition, pageRequest);
 
         //then
-        List<ScenarioAccidentPortFacilityDto> content = scenario.getContent();
+        List<ScenarioFacilityDto> content = scenario.getContent();
         assertEquals("조회된 데이터 수", 3, content.size());
         assertEquals("전체 데이터 수", 5, scenario.getTotalElements());
         assertEquals("페이지 번호", 0, scenario.getNumber());
@@ -391,10 +405,10 @@ public class TrainingScenarioServiceTest {
         PageRequest pageRequest = PageRequest.of(0, 3);
 
         //when
-        Page<ScenarioAccidentPortFacilityDto> scenario = scenarioService.searchPageScenario(condition, pageRequest);
+        Page<ScenarioFacilityDto> scenario = scenarioService.searchPageScenario(condition, pageRequest);
 
         //then
-        List<ScenarioAccidentPortFacilityDto> content = scenario.getContent();
+        List<ScenarioFacilityDto> content = scenario.getContent();
         assertEquals("조회된 데이터 수", 3, content.size());
         assertEquals("전체 데이터 수", 5, scenario.getTotalElements());
         assertEquals("페이지 번호", 0, scenario.getNumber());

@@ -52,11 +52,14 @@
         <tr>
             <td style="background-color: #f2eeee; font-weight: 600;">사고항만설비</td>
             <td colspan="3" rowspan="1">
-                <input name="machine1" type="checkbox" disabled checked>크레인
-                <input name="machine2" type="checkbox" disabled>컨테이너
-                <input name="machine3" type="checkbox" disabled>지게차
-                <input name="machine4" type="checkbox" disabled checked>사다리
-
+                <input type="checkbox" th:name="accidentPortFacilityList" th:value="CRANE"
+                       th:checked="${#strings.contains(portFacilityList,'CRANE')}" disabled>크레인
+                &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="CONTAINER"
+                             th:checked="${#strings.contains(portFacilityList,'CONTAINER')}" disabled>컨테이너
+                &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="FORKLIFT"
+                             th:checked="${#strings.contains(portFacilityList,'FORKLIFT')}" disabled>지게차
+                &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="LADDER"
+                             th:checked="${#strings.contains(portFacilityList,'LADDER')}" disabled>사다리
             </td>
         </tr>
         </tbody>
@@ -78,7 +81,10 @@
         </tbody>
     </table>
     <div class="regist-button">
-        <a th:href="@{/TrainingScenarios/ARA_Register_Page/{scenarioId}(scenarioId=${scenario.id})}"><span class="imsi-button">&nbsp;&nbsp;사고대응활동 등록&nbsp;&nbsp;</span></a>
+        <a th:href="@{/TrainingScenarios/TS_Modify_Page/{scenarioId}(scenarioId=${scenario.id})}"><span
+                class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
+        <a th:href="@{/TrainingScenarios/ARA_Register_Page/{scenarioId}(scenarioId=${scenario.id})}"><span
+                class="imsi-button">&nbsp;&nbsp;사고대응활동 등록&nbsp;&nbsp;</span></a>
         <a href="/TrainingScenarios/TS_Check"><span class="imsi-button">&nbsp;&nbsp;돌아가기&nbsp;&nbsp;</span></a>
     </div>
 </div>

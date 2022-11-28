@@ -18,8 +18,9 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
-<body>
+<body onload="ChangeValue()">
 <script type="module" src="/js/header.js"></script>
 <port-header></port-header>
 <!--training-scenarios-->
@@ -30,76 +31,153 @@
         <p>대응훈련 시나리오 수정</p>
     </div>
     <span class="fonts">시나리오 유형&nbsp; 
-      <select id="choose" onchange="ChangeValue()">
-        <option value="사고">사고</option>
-        <option value="재난">재난</option>
+      <select id="incidentType" th:name="incidentType" onchange="ChangeValue()">
+        <option th:value="INCIDENT" th:selected="${#strings.equals(scenario.incidentType, 'INCIDENT')}">사고</option>
+        <option th:value="DISASTER" th:selected="${#strings.equals(scenario.incidentType, 'DISASTER')}">재난</option>
       </select></span>
-    <br><br>
-    <form method="post" action="/TrainingScenarios/TS_Modify_Check" name="checkScenario">
-    <span class="fonts">
-      <p class="pstyle">수정할 대응훈련 시나리오의 시나리오명 입력 &nbsp;&nbsp;<input type="text" required name="nameCheck"
-                                                                   th:id="nameCheck"><br></p>
-    </span>
-        <div class="regist-button" style="position: absolute; right: 60px; top: 145px;">
-            <button type="button" onclick="javascript:document.checkScenario.submit();">조회</button>
-            <!--      <a href="#" onclick="javascript:document.checkScenario.submit();"><span class="imsi-button">&nbsp;&nbsp;확인&nbsp;&nbsp;</span></a>-->
-        </div>
-    </form>
+    <!--    <br><br>-->
+    <!--    <form method="post" action="/TrainingScenarios/TS_Modify_Check" name="checkScenario">-->
+    <!--    <span class="fonts">-->
+    <!--      <p class="pstyle">수정할 대응훈련 시나리오의 시나리오명 입력 &nbsp;&nbsp;<input type="text" required name="nameCheck"-->
+    <!--                                                                   th:id="nameCheck"-->
+    <!--                                                                   th:value="${scenario.name}"><br></p>-->
+    <!--    </span>-->
+    <!--        <div class="regist-button" style="position: absolute; right: 60px; top: 145px;">-->
+    <!--            <button type="button" onclick="javascript:document.checkScenario.submit();">조회</button>-->
+    <!--            &lt;!&ndash;      <a href="#" onclick="javascript:document.checkScenario.submit();"><span class="imsi-button">&nbsp;&nbsp;확인&nbsp;&nbsp;</span></a>&ndash;&gt;-->
+    <!--        </div>-->
+    <!--    </form>-->
     <br><br>
     <div class="regist-line-1">
-        <p><span class="fonts"> 시나리오명 &nbsp;&nbsp;<input type="text" placeholder="" style="width: 250px;"> </span>
+        <input type="hidden" th:id="scenarioId" th:value="${scenario.id}">
+        <p><span class="fonts"> 시나리오명 &nbsp;&nbsp;<input type="text" name="name" id="name" placeholder=""
+                                                         style="width: 250px;"
+                                                         th:value="${scenario.name}"> </span>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <span class="fonts" id="ch2">사고 유형</span> &nbsp;&nbsp;
-            <select id="incidentDetailTypeSelect">
-                <option value="none" selected="selected">&nbsp;--&nbsp;</option>
-                <option value="DROP" id="sel1">추락</option>
-                <option value="FALL" id="sel2">넘어짐</option>
-                <option value="BUMP" id="sel3">부딪힘</option>
-                <option value="TRAP" id="sel4">끼임</option>
-                <option value="HIT" id="sel5">맞음</option>
+            <select id="incidentDetailType" name="incidentDetailType">
+                <option th:name="incidentDetailType" th:value="DROP" id="sel1"
+                        th:selected="${#strings.equals(scenario.incidentDetailType, 'DROP')}">
+                    추락
+                </option>
+                <option th:name="incidentDetailType" th:value="FALL" id="sel2"
+                        th:selected="${#strings.equals(scenario.incidentDetailType, 'FALL')}">
+                    넘어짐
+                </option>
+                <option th:name="incidentDetailType" th:value="BUMP" id="sel3"
+                        th:selected="${#strings.equals(scenario.incidentDetailType, 'BUMP')}">
+                    부딪힘
+                </option>
+                <option th:name="incidentDetailType" th:value="TRAP" id="sel4"
+                        th:selected="${#strings.equals(scenario.incidentDetailType, 'TRAP')}">
+                    끼임
+                </option>
+                <option th:name="incidentDetailType" th:value="HIT" id="sel5"
+                        th:selected="${#strings.equals(scenario.incidentDetailType, 'HIT')}">
+                    맞음
+                </option>
             </select>
         </p>
     </div>
 
     <div class="regist-line-2">
         <p><span class="fonts" id="ch1">사고 수준</span> &nbsp;&nbsp;
-            <input type="radio" name="l1" checked> Level1
-            <input type="radio" name="l1"> Level2
-            <input type="radio" name="l1"> Level3
+            <input th:value="LEVEL_1" type="radio" th:name="incidentLevel" th:id="incidentLevel"
+                   th:checked="${#strings.equals(scenario.incidentLevel, 'LEVEL_1')}">
+            Level1
+            <input th:value="LEVEL_2" type="radio" th:name="incidentLevel" th:id="incidentLevel"
+                   th:checked="${#strings.equals(scenario.incidentLevel, 'LEVEL_2')}">
+            Level2
+            <input th:value="LEVEL_3" type="radio" th:name="incidentLevel" th:id="incidentLevel"
+                   th:checked="${#strings.equals(scenario.incidentLevel, 'LEVEL_3')}">
+            Level3
         </p>
     </div>
 
     <div class="regist-line-3">
-        <p><span class="fonts" id="ch3">사고 영향</span> &nbsp;&nbsp;<select>
-            <option>경상</option>
-            <option>중상</option>
+        <p><span class="fonts" id="ch3">사고 영향</span> &nbsp;&nbsp;<select id="incidentImpact">
+            <option th:name="incidentImpact" th:value="DAMAGE"
+                    th:selected="${#strings.equals(scenario.incidentImpact, 'DAMAGE')}">단순
+            </option>
+            <option th:name="incidentImpact" th:value="SLIGHT"
+                    th:selected="${#strings.equals(scenario.incidentImpact, 'SLIGHT')}">경상
+            </option>
+            <option th:name="incidentImpact" th:value="SERIOUS"
+                    th:selected="${#strings.equals(scenario.incidentImpact, 'SERIOUS')}">중상
+            </option>
+            <option th:name="incidentImpact" th:value="DEATH"
+                    th:selected="${#strings.equals(scenario.incidentImpact, 'DEATH')}">사망
+            </option>
         </select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fonts" id="ch4">사고항만구역</span> &nbsp;&nbsp;<select>
-                <option>무역항 수상구역</option>
-                <option>무역항 육상구역</option>
-                <option>연안항 수상구역</option>
-                <option>연안항 육상구역</option>
-                <option>하역</option>
+            <span class="fonts" id="ch4">사고항만구역</span> &nbsp;&nbsp;<select th:id="portArea">
+                <option th:name="portArea" value="PLACE1" th:selected="${#strings.equals(scenario.portArea, 'PLACE1')}">
+                    무역항 수상구역
+                </option>
+                <option th:name="portArea" value="PLACE2" th:selected="${#strings.equals(scenario.portArea, 'PLACE2')}">
+                    무역항 육상구역
+                </option>
+                <option th:name="portArea" value="PLACE3" th:selected="${#strings.equals(scenario.portArea, 'PLACE3')}">
+                    연안항 수상구역
+                </option>
+                <option th:name="portArea" value="PLACE4" th:selected="${#strings.equals(scenario.portArea, 'PLACE4')}">
+                    연안항 육상구역
+                </option>
+                <option th:name="portArea" value="PLACE5" th:selected="${#strings.equals(scenario.portArea, 'PLACE5')}">
+                    하역
+                </option>
             </select>
         </p>
     </div>
 
     <div class="regist-line-4">
         <p><span class="fonts" id="ch5">사고항만설비</span> &nbsp; &nbsp;
-            <input type="checkbox" name="machine1">크레인
-            &nbsp;<input type="checkbox" name="machine2">컨테이너
-            &nbsp;<input type="checkbox" name="machine3">지게차
-            &nbsp;<input type="checkbox" name="machine4">사다리
+            <input type="checkbox" th:name="accidentPortFacilityList" th:value="CRANE"
+                   th:checked="${#strings.contains(portFacilityList,'CRANE')}">크레인
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="CONTAINER"
+                         th:checked="${#strings.contains(portFacilityList,'CONTAINER')}">컨테이너
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="FORKLIFT"
+                         th:checked="${#strings.contains(portFacilityList,'FORKLIFT')}">지게차
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" th:value="LADDER"
+                         th:checked="${#strings.contains(portFacilityList,'LADDER')}">사다리
         </p>
     </div>
 
+    <div class="regist-title" th:if="${accidentResponseActivityList.size() != 0}">
+        <p>사고대응활동 수정</p>
+    </div>
+
+    <th:block th:each="activity : ${accidentResponseActivityList}">
+        <div class="regist-line-5">
+            <p class="fonts" id="ch6">사고대응활동 내용</p>
+        </div>
+        <br>
+        <input type="hidden" th:id="size" th:value="${accidentResponseActivityList.size()}">
+        <input type="hidden" th:id="'accidentResponseActivityId'+${activityStat.count}" th:value="${activity.id}">
+        <div class="regist-line-6">
+            <p><textarea th:id="'comment'+${activityStat.count}" placeholder="발생한 상황을 가정하여 상세하게 작성"
+                         style="white-space:pre;"
+                         th:value="${activity.comment}" th:text="${activity.comment}"></textarea></p>
+        </div>
+
+        <div class="regist-line-7">
+            <p><span class="fonts"> 담당자 &nbsp;<input type="text" th:id="'manager'+${activityStat.count}"
+                                                     placeholder="담당자 이름 입력"
+                                                     th:value="${activity.manager}"> </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="fonts"> 완료계획시간 &nbsp;
+          <input type="date" th:id="'completePlaningTime'+${activityStat.count}"
+                 th:value="${#temporals.format(activity.completePlaningTime, 'yyyy-MM-dd')}">
+        </span>
+            </p>
+        </div>
+    </th:block>
+
     <div class="regist-button">
-        <a href="/TrainingScenarios/TS_Modify"><span class="imsi-button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
-        <a href="/TrainingScenarios/TS_Check"><span class="imsi-button">&nbsp;&nbsp;취소&nbsp;&nbsp;</span></a>
+        <a href="#"><span class="imsi-button" th:id="TS_Modify_button">&nbsp;&nbsp;수정&nbsp;&nbsp;</span></a>
+        <a href="javascript:window.history.go(-1);"><span class="imsi-button">&nbsp;&nbsp;취소&nbsp;&nbsp;</span></a>
     </div>
 </div>
-
 
 <!-- footer -->
 <footer>
@@ -121,4 +199,5 @@
 </footer>
 </body>
 <script src="/js/traningscenarios/tsmodify.js"></script>
+<script src="/js/traningscenarios/TS_modify.js"></script>
 </html>

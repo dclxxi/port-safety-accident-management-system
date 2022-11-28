@@ -16,7 +16,7 @@ class PortHeader extends HTMLElement {
             '        </ul>\n' +
             '      </div>\n' +
             '      <nav role="navigation">\n' +
-            '        <div class="main" style="left: 130px;">\n' +
+            '        <div class="main">\n' +
             '          <ul id="main-menu">\n' +
             '            <li><a href="#">공통코드<br>관리</a>\n' +
             '              <ul id="sub-menu">\n' +
@@ -61,7 +61,7 @@ class PortHeader extends HTMLElement {
             '                <li><a href="/EmergencyContact/EC_Register_Page" aria-label="submenu">비상연락망 등록</a></li>\n' +
             '              </ul>\n' +
             '            </li>\n' +
-            '            <li><a href="/help/stateaccident">항만 안전 사고<br>현황</a>\n' +
+            '            <li><a href="/help/stateaccident" style="position:relative; left:800px; top:-57.5px;">항만 안전사고<br>현황</a>\n' +
             '            </li>\n' +
             '          </ul>\n' +
             '        </div>\n' +

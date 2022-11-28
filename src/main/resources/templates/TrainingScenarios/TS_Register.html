@@ -44,12 +44,12 @@
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <span class="fonts" id="ch2">사고 유형</span> &nbsp;&nbsp;
             <select id="incidentDetailType" name="incidentDetailType">
-                <option name="incidentDetailType" value="none" >&nbsp;--&nbsp;</option>
-                <option name="incidentDetailType" value="DROP" id="sel1">추락</option>
-                <option name="incidentDetailType" value="FALL" id="sel2">넘어짐</option>
-                <option name="incidentDetailType" value="BUMP" id="sel3">부딪힘</option>
-                <option name="incidentDetailType" value="TRAP" id="sel4">끼임</option>
-                <option name="incidentDetailType" value="HIT" id="sel5">맞음</option>
+                <option th:name="incidentDetailType" value="none" >&nbsp;--&nbsp;</option>
+                <option th:name="incidentDetailType" value="DROP" id="sel1">추락</option>
+                <option th:name="incidentDetailType" value="FALL" id="sel2">넘어짐</option>
+                <option th:name="incidentDetailType" value="BUMP" id="sel3">부딪힘</option>
+                <option th:name="incidentDetailType" value="TRAP" id="sel4">끼임</option>
+                <option th:name="incidentDetailType" value="HIT" id="sel5">맞음</option>
             </select>
     </div>
 
@@ -71,7 +71,7 @@
             </select>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="fonts" id="ch4">사고항만구역</span> &nbsp;&nbsp;
-            <select th:id="portArea">
+            <select id="portArea">
                 <option th:name="portArea" value="PLACE1">무역항 수상구역</option>
                 <option th:name="portArea" value="PLACE2">무역항 육상구역</option>
                 <option th:name="portArea" value="PLACE3">연안항 수상구역</option>
@@ -83,10 +83,10 @@
 
     <div class="regist-line-4">
         <p><span class="fonts" id="ch5">사고항만설비</span>
-            &nbsp;<input type="checkbox" name="accidentPortFacilityList" value="CRANE">크레인
-            &nbsp;<input type="checkbox" name="accidentPortFacilityList" value="CONTAINER">컨테이너
-            &nbsp;<input type="checkbox" name="accidentPortFacilityList" value="FORKLIFT">지게차
-            &nbsp;<input type="checkbox" name="accidentPortFacilityList" value="LADDER">사다리
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" value="CRANE">크레인
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" value="CONTAINER">컨테이너
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" value="FORKLIFT">지게차
+            &nbsp;<input type="checkbox" th:name="accidentPortFacilityList" value="LADDER">사다리
         </p>
     </div>
     <div class="regist-line-3">
@@ -123,11 +123,4 @@
 </body>
 <script src="/js/traningscenarios/tsregister.js"></script>
 <script src="/js/traningscenarios/TS_registration.js"></script>
-
-<script>
-    function btn() {
-        alert('시나리오 결과가 저장되었습니다.');
-        location.href="/TrainingScenarios/TS_Check"
-    }
-</script>
 </html>
